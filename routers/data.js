@@ -43,4 +43,23 @@ module.exports = function (app) {
   app.post("/userlogin", (req, res) => {
     controller.userLogin(req, res);
   });
+
+  // 查询文件接口
+  app.post("/findfile", (req, res) => {
+    controller.findFile(req, res);
+  });
+
+  // 查询所有文件接口
+  app.post("/findallfile", (req, res) => {
+    controller.findAllFile(req, res);
+  });
+
+  // 删除文件接口
+  app.post("/deletefile", (req, res) => {
+    controller.deleteFile(req, res);
+  });
+  // 增加浏览量接口
+  app.post("/updatescreennumber", (req, res) => {
+    controller.updateScreenNumber(req, res);
+  });
 };

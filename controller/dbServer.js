@@ -7,13 +7,15 @@ const dbModel = require("../lib/db");
 
 // 新建文件函数
 exports.insertFile = async (req, res) => {
-  let { file_upload_time, file_type, file_link, file_suffix, file_name, file_user_id, file_user_name, file_remark, file_address, file_view } = req.body; //解构赋值
-  await dbModel.insertFile([file_upload_time, file_type, file_link, file_suffix, file_name, file_user_id, file_user_name, file_remark, file_address, file_view]).then((result) => {
-    res.send({
-      code: 200,
-      message: result,
+  let { file_upload_time, file_type, file_link, file_suffix, file_name, file_size, file_region, file_user_id, file_user_name, file_remark, file_address, file_view } = req.body; //解构赋值
+  await dbModel
+    .insertFile([file_upload_time, file_type, file_link, file_suffix, file_name, file_size, file_region, file_user_id, file_user_name, file_remark, file_address, file_view])
+    .then((result) => {
+      res.send({
+        code: 200,
+        message: result,
+      });
     });
-  });
 };
 
 // 新建用户函数
@@ -45,13 +47,13 @@ exports.userLogin = async (req, res) => {
     if (result.length == 0) {
       res.send({
         code: 400,
-        message: "用户名或者密码错误。",
+        message: "用户名或者密码错误！",
       });
     } else {
       let token = jwt.sign({ email, password }, TOKEN_KEY, { expiresIn: TIME });
       res.send({
         code: 200,
-        message: "登录成功。",
+        message: "登录成功！",
         token: "Bearer " + token,
         userObj: {
           id: result[0].user_id,
@@ -60,5 +62,47 @@ exports.userLogin = async (req, res) => {
         },
       });
     }
+  });
+};
+
+// 查询文件接口
+exports.findFile = async (req, res) => {
+  let { user_id } = req.body; //解构赋值
+  await dbModel.findFile([user_id]).then((result) => {
+    res.send({
+      code: 200,
+      message: result,
+    });
+  });
+};
+
+exports.findAllFile = async (req, res) => {
+  await dbModel.findAllFile().then((result) => {
+    res.send({
+      code: 200,
+      message: result,
+    });
+  });
+};
+
+// 删除文件接口
+exports.deleteFile = async (req, res) => {
+  let { file_id } = req.body; //解构赋值
+  await dbModel.deleteFile([file_id]).then((result) => {
+    res.send({
+      code: 200,
+      message: result,
+    });
+  });
+};
+
+// 增加浏览量接口
+exports.updateScreenNumber = async (req, res) => {
+  let { file_id } = req.body; //解构赋值
+  await dbModel.updateScreenNumber([file_id]).then((result) => {
+    res.send({
+      code: 200,
+      message: result,
+    });
   });
 };
