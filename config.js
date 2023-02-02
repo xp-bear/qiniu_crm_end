@@ -4,7 +4,7 @@ module.exports = {
     HOST: "127.0.0.1",
     USER: "root",
     PASSWORD: "root",
-    DBS: "cloud_qiniu", //数据库
+    DBS: "qiniucloud", //数据库
   },
   imgHost: "http://localhost:7777",
   TOKEN_KEY: "xiong-zai-tu-chaung", //设置token秘钥、过期时间。
