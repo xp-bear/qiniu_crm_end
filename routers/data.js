@@ -15,21 +15,51 @@ module.exports = function (app) {
   app.post("/sendmail", async (req, res) => {
     let { useremail } = req.body;
     //测试邮件
-    let mailId = useremail || "671781813@qq.com"; //收件人的邮箱账号
+    let mailId = useremail || ""; //收件人的邮箱账号
     // let VerificationCode = "8888"; //四位验证码，随机码下面有封装，直接调用即可
     let VerificationCode = getVerificationCode(); //生成随机码
     // console.log("发送的验证码为：" + VerificationCode); //查看随机码
-    let result = await sendMails(mailId, VerificationCode);
-    if (result.response == "250 OK: queued as.") {
-      return res.send({
-        code: 200,
-        VerificationCode: VerificationCode,
-        message: "邮件发送成功。",
-      });
-    } else {
+
+    try {
+      let result = await sendMails(mailId, VerificationCode);
+      // ---- 加密操作
+      // let ciphertext = ""; //密文
+      // for (let i = 0; i < VerificationCode.length; i++) {
+      //   ciphertext += VerificationCode.charCodeAt(i) + 3 + ".";
+      // }
+      // // 添加混淆
+      // ciphertext += Math.round(Math.random() * (200 - 100) + 100);
+
+      // // 移位操作
+      // ciphertext = ciphertext.split(".").reverse().join(".");
+
+      /*
+      // 解密
+        let str = "138.109.118.68.78"; // KAsj
+        let arr = str.split(".").reverse();
+        arr.pop();
+        let password = [];
+        for (i = 0; i < arr.length; i++) {
+          password.push("" + parseInt(arr[i]) - 3);
+        }
+        let decode = ""; //解密
+        for (i = 0; i < password.length; i++) {
+          decode += String.fromCharCode(password[i]);
+        }
+        console.log(decode);
+      */
+      // ----
+      if (result.response == "250 OK: queued as.") {
+        return res.send({
+          code: 200,
+          VerificationCode: VerificationCode,
+          message: "邮件发送成功！",
+        });
+      }
+    } catch (error) {
       return res.send({
         code: 500,
-        message: "邮件发送失败。",
+        message: "邮件发送失败！",
       });
     }
   });
