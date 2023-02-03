@@ -83,6 +83,9 @@ exports.userLogin = async (req, res) => {
             id: result[0].user_id,
             username: result[0].username,
             avatar: result[0].avatar,
+            email: result[0].email,
+            banana_num: result[0].banana_num,
+            sign: result[0].sign,
           },
         });
       }
@@ -155,6 +158,24 @@ exports.updateScreenNumber = async (req, res) => {
   let { file_id } = req.body; //解构赋值
   await dbModel
     .updateScreenNumber([file_id])
+    .then((result) => {
+      res.send({
+        code: 200,
+        message: result,
+      });
+    })
+    .catch((err) => {
+      res.send({
+        code: 500,
+        message: "服务器出大问题!",
+      });
+    });
+};
+//增加香蕉接口
+exports.insertBanana = async (req, res) => {
+  let { user_id } = req.body; //解构赋值
+  await dbModel
+    .insertBanana([user_id])
     .then((result) => {
       res.send({
         code: 200,

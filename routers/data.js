@@ -88,8 +88,14 @@ module.exports = function (app) {
   app.post("/deletefile", (req, res) => {
     controller.deleteFile(req, res);
   });
+
   // 增加浏览量接口
   app.post("/updatescreennumber", (req, res) => {
     controller.updateScreenNumber(req, res);
+  });
+
+   // 增加香蕉接口
+   app.post("/insertbanana", (req, res) => {
+    controller.insertBanana(req, res);
   });
 };
