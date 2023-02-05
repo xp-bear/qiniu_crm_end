@@ -86,6 +86,7 @@ exports.userLogin = async (req, res) => {
             email: result[0].email,
             banana_num: result[0].banana_num,
             sign: result[0].sign,
+            create_time: result[0].create_time,
           },
         });
       }
@@ -186,6 +187,25 @@ exports.insertBanana = async (req, res) => {
       res.send({
         code: 500,
         message: "服务器出大问题!",
+      });
+    });
+};
+// 10.修改用户信息接口
+exports.updateUserInfo = async (req, res) => {
+  let { avatar, username, sign, user_id } = req.body; //解构赋值
+  await dbModel
+    .updateUserInfo([avatar, username, sign, user_id])
+    .then((result) => {
+      res.send({
+        code: 200,
+        message: result,
+      });
+    })
+    .catch((err) => {
+      res.send({
+        code: 500,
+        message: "服务器出大问题!",
+        err: err,
       });
     });
 };

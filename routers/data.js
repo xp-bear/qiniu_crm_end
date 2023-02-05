@@ -94,8 +94,13 @@ module.exports = function (app) {
     controller.updateScreenNumber(req, res);
   });
 
-   // 增加香蕉接口
-   app.post("/insertbanana", (req, res) => {
+  // 增加香蕉接口
+  app.post("/insertbanana", (req, res) => {
     controller.insertBanana(req, res);
+  });
+
+  // 10.修改用户信息接口
+  app.post("/updateuserinfo", (req, res) => {
+    controller.updateUserInfo(req, res);
   });
 };
