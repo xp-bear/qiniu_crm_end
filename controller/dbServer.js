@@ -209,3 +209,22 @@ exports.updateUserInfo = async (req, res) => {
       });
     });
 };
+// 11.修改文件表的文件所属者
+exports.fileEditName = async (req, res) => {
+  let { file_user_name, file_user_id } = req.body; //解构赋值
+  await dbModel
+    .fileEditName([file_user_name, file_user_id])
+    .then((result) => {
+      res.send({
+        code: 200,
+        message: result,
+      });
+    })
+    .catch((err) => {
+      res.send({
+        code: 500,
+        message: "服务器出大问题!",
+        err: err,
+      });
+    });
+};

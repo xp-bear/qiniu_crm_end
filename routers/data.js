@@ -103,4 +103,9 @@ module.exports = function (app) {
   app.post("/updateuserinfo", (req, res) => {
     controller.updateUserInfo(req, res);
   });
+
+  // 11.修改文件表的文件所属者
+  app.post("/fileeditname", (req, res) => {
+    controller.fileEditName(req, res);
+  });
 };
