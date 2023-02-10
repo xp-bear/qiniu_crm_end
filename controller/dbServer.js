@@ -228,3 +228,22 @@ exports.fileEditName = async (req, res) => {
       });
     });
 };
+// 12.相关文件多条件查询。
+exports.fileMultipleFind = async (req, res) => {
+  let { file_user_id, file_suffix, file_name, file_remark } = req.body; //解构赋值 //查询用户, (文件类型)后缀名file_suffix  文件名称file_name 文件备注信息file_remark 查询时间范围
+  await dbModel
+    .fileMultipleFind([file_user_id])
+    .then((result) => {
+      res.send({
+        code: 200,
+        message: result,
+      });
+    })
+    .catch((err) => {
+      res.send({
+        code: 500,
+        message: "服务器出大问题!",
+        err: err,
+      });
+    });
+};

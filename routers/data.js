@@ -108,4 +108,8 @@ module.exports = function (app) {
   app.post("/fileeditname", (req, res) => {
     controller.fileEditName(req, res);
   });
+  // 12.相关文件多条件查询。
+  app.post("/filemultiplefind", (req, res) => {
+    controller.fileMultipleFind(req, res);
+  });
 };
