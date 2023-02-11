@@ -100,10 +100,10 @@ exports.userLogin = async (req, res) => {
 };
 
 // 查询文件接口
-exports.findFile = async (req, res) => {
-  let { user_id } = req.body; //解构赋值
+exports.findFileCounter = async (req, res) => {
+  let { user_id, file_type } = req.body; //解构赋值
   await dbModel
-    .findFile([user_id])
+    .findFileCounter([user_id, file_type])
     .then((result) => {
       res.send({
         code: 200,
@@ -125,6 +125,7 @@ exports.findAllFile = async (req, res) => {
       res.send({
         code: 200,
         message: result,
+        count: result.length,
       });
     })
     .catch((err) => {
@@ -230,13 +231,15 @@ exports.fileEditName = async (req, res) => {
 };
 // 12.相关文件多条件查询。
 exports.fileMultipleFind = async (req, res) => {
-  let { file_user_id, file_suffix, file_name, file_remark } = req.body; //解构赋值 //查询用户, (文件类型)后缀名file_suffix  文件名称file_name 文件备注信息file_remark 查询时间范围
+  let { file_user_id, file_type, file_name, file_remark, time_range, page_num, page_size } = req.body; //解构赋值 //查询用户, (文件类型)后缀名file_suffix  文件名称file_name 文件备注信息file_remark 查询时间范围
+  // console.log("---", file_user_id, file_type, file_name, file_remark, time_range, page_num, page_size);
   await dbModel
-    .fileMultipleFind([file_user_id])
+    .fileMultipleFind([file_user_id, file_type, file_name, file_remark, time_range, page_num, page_size])
     .then((result) => {
       res.send({
         code: 200,
         message: result,
+        count: result.length,
       });
     })
     .catch((err) => {

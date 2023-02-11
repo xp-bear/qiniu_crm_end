@@ -74,9 +74,9 @@ module.exports = function (app) {
     controller.userLogin(req, res);
   });
 
-  // 查询文件接口
-  app.post("/findfile", (req, res) => {
-    controller.findFile(req, res);
+  // 查询文件数量
+  app.post("/findfilecounter", (req, res) => {
+    controller.findFileCounter(req, res);
   });
 
   // 查询所有文件接口
