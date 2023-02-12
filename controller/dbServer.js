@@ -119,8 +119,9 @@ exports.findFileCounter = async (req, res) => {
 };
 
 exports.findAllFile = async (req, res) => {
+  let { user_id } = req.body; //解构赋值
   await dbModel
-    .findAllFile()
+    .findAllFile([user_id])
     .then((result) => {
       res.send({
         code: 200,
