@@ -57,6 +57,7 @@ module.exports = function (app) {
         });
       }
     } catch (error) {
+      console.log(error);
       return res.send({
         code: 500,
         message: "邮件发送失败！",

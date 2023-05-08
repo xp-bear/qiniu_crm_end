@@ -13,7 +13,7 @@ let sendMails = (mailId, VerificationCode) => {
     auth: {
       //用户信息
       user: "1693889638@qq.com", //用来发邮件的邮箱账户
-      pass: "xbsyjesutwazdbbj", //这里的密码是qq的smtp授权码，可以去qq邮箱后台开通查看
+      pass: "fkmuihglixmgeefh", //这里的密码是qq的smtp授权码，可以去qq邮箱后台开通查看
     },
   });
 
