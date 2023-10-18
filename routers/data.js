@@ -113,4 +113,11 @@ module.exports = function (app) {
   app.post("/filemultiplefind", (req, res) => {
     controller.fileMultipleFind(req, res);
   });
+
+  // ----------------------------------------------------------------------
+  // 移动端接口的实现
+  // 1.查询文件
+  app.get("/m_searchfile", (req, res) => {
+    controller.m_searchfile(req, res);
+  });
 };

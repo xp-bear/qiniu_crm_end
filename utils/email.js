@@ -21,7 +21,7 @@ let sendMails = (mailId, VerificationCode) => {
   let mailOptions = {
     from: "1693889638@qq.com", //谁发的
     to: mailId, //发给谁
-    subject: "熊仔图床，轻量，快速，高效。", //主题是什么
+    subject: "熊仔网盘，轻量，快速，高效。", //主题是什么
     text: "注册邮箱验证码", //文本内容
     html: `<head>
     <base target="_blank" />

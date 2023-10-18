@@ -251,3 +251,27 @@ exports.fileMultipleFind = async (req, res) => {
       });
     });
 };
+
+// -------------------------------------------------------
+// 移动端接口
+// 1.查询文件
+
+exports.m_searchfile = async (req, res) => {
+  let { keyword } = req.query; //解构赋值 //查询用户, (文件类型)后缀名file_suffix  文件名称file_name 文件备注信息file_remark 查询时间范围
+  await dbModel
+    .m_searchfile([keyword, keyword])
+    .then((result) => {
+      res.send({
+        code: 200,
+        message: result,
+        count: result.length,
+      });
+    })
+    .catch((err) => {
+      res.send({
+        code: 500,
+        message: "服务器出大问题!",
+        err: err,
+      });
+    });
+};

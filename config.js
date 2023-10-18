@@ -1,8 +1,8 @@
 module.exports = {
   port: 7777,
   database: {
-    HOST: "127.0.0.1",
-    USER: "root",
+    HOST: "150.158.21.251",
+    USER: "qiniuCloud",
     PASSWORD: "root",
     DBS: "qiniucloud", //数据库
   },
