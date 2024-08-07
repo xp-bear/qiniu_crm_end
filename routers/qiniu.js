@@ -2,15 +2,15 @@
 const qiniu = require("qiniu");
 
 module.exports = function (app) {
-  // 起始接口
+  // 起始首页接口
   app.get("/", (req, res) => {
     res.send({
       code: 200,
       message: "七牛后端服务启动成功~",
     });
   });
-  // 返回上传文件的token值,返回给前端,根据token值进行一个上传
-  //匹配GET请求路径设置回调函数
+
+  // 返回上传文件的token值,返回给前端,根据token值进行一个上传 //匹配GET请求路径设置回调函数
   app.get("/token", function (req, res) {
     const accessKey = "EGGnEY8AQ2_FKIfrcXerQ7Dntu7L0QEicVhYoHjS";
     const secretKey = "v-QNWJJh2S5MZ2B5nVAIce7TWAs7cH8uOev4aiSV";
@@ -33,13 +33,11 @@ module.exports = function (app) {
     res.json({ uploadToken });
   });
 
-  // 删除文件操作
+  // 删除资源
   app.post("/delete", (req, res) => {
-    let accessKey = "EGGnEY8AQ2_FKIfrcXerQ7Dntu7L0QEicVhYoHjS";
-    let secretKey = "v-QNWJJh2S5MZ2B5nVAIce7TWAs7cH8uOev4aiSV";
+    const accessKey = "EGGnEY8AQ2_FKIfrcXerQ7Dntu7L0QEicVhYoHjS";
+    const secretKey = "v-QNWJJh2S5MZ2B5nVAIce7TWAs7cH8uOev4aiSV";
     let { file_name, space } = req.body;
-    // file_name: 文件名
-    // space: 存储区域
 
     var mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
     var config = new qiniu.conf.Config();
@@ -47,8 +45,7 @@ module.exports = function (app) {
     config.zone = qiniu.zone.Zone_z2; // 华南
     var bucketManager = new qiniu.rs.BucketManager(mac, config);
 
-    var bucket = space;
-    // var key = req.body.fileName; // 传递文件名
+    var bucket = space; //存取区域
     var key = file_name; // 传递文件名
 
     bucketManager.delete(bucket, key, function (err, respBody, respInfo) {
@@ -60,6 +57,8 @@ module.exports = function (app) {
         res.send({
           code: 200,
           message: "资源删除成功!",
+          result: respBody,
+          respInfo: respInfo,
         });
       }
     });

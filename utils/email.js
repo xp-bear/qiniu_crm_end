@@ -12,77 +12,77 @@ let sendMails = (mailId, VerificationCode) => {
     //secureConnection:false,   //是否使用ssl
     auth: {
       //用户信息
-      user: "1693889638@qq.com", //用来发邮件的邮箱账户
-      pass: "fkmuihglixmgeefh", //这里的密码是qq的smtp授权码，可以去qq邮箱后台开通查看
+      user: "coderxp@qq.com", //用来发邮件的邮箱账户
+      pass: "cynztxfbsmvjdhia", //这里的密码是qq的smtp授权码，可以去qq邮箱后台开通查看
     },
   });
 
   //设置收件人信息
   let mailOptions = {
-    from: "1693889638@qq.com", //谁发的
+    from: "coderxp@qq.com", //谁发的
     to: mailId, //发给谁
-    subject: "熊仔网盘，轻量，快速，高效。", //主题是什么
+    subject: "熊仔网盘服务平台(邮箱注册)", // 邮箱主题, //主题是什么
     text: "注册邮箱验证码", //文本内容
-    html: `<head>
-    <base target="_blank" />
-    <style type="text/css">::-webkit-scrollbar{ display: none; }</style>
-    <style id="cloudAttachStyle" type="text/css">#divNeteaseBigAttach, #divNeteaseBigAttach_bak{display:none;}</style>
-    <style id="blockquoteStyle" type="text/css">blockquote{display:none;}</style>
-    <style type="text/css">
-        body{font-size:14px;font-family:arial,verdana,sans-serif;line-height:1.666;padding:0;margin:0;overflow:auto;white-space:normal;word-wrap:break-word;min-height:100px}
-        td, input, button, select, body{font-family:Helvetica, 'Microsoft Yahei', verdana}
-        pre {white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word;width:95%}
-        th,td{font-family:arial,verdana,sans-serif;line-height:1.666}
-        img{ border:0}
-        header,footer,section,aside,article,nav,hgroup,figure,figcaption{display:block}
-        blockquote{margin-right:0px}
-    </style>
-</head>
-<body tabindex="0" role="listitem">
-<table width="700" border="0" align="center" cellspacing="0" style="width:700px;">
-    <tbody>
-    <tr>
-        <td>
-            <div style="width:700px;margin:0 auto;border-bottom:1px solid #ccc;margin-bottom:30px;">
-                <table border="0" cellpadding="0" cellspacing="0" width="700" height="39" style="font:12px Tahoma, Arial, 宋体;">
-                    <tbody><tr><td width="210"></td></tr></tbody>
+    html: `
+      <!DOCTYPE html>
+        <html lang="zh-CN">
+        <head>
+            <meta charset="UTF-8">
+            <title>邮箱验证</title>
+            <style type="text/css">
+                body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+                table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+                img { -ms-interpolation-mode: bicubic; }
+
+                /* CLIENT-SPECIFIC STYLES */
+                body { width: 100% !important; height: 100%; line-height: 1.6em; margin: 0; padding: 0; font-family: Arial, sans-serif; font-size: 15px; color: #333; }
+                .container { display: block !important; max-width: 600px !important; margin: 0 auto !important; clear: both !important; }
+                .content { padding: 20px; background-color: #fff; border-radius: 8px; background-color: #f6f6f6; }
+                .header { padding: 40px 0; background-color: #0073b7; color: #ffffff; }
+                .button { display: inline-block; padding: 10px 20px; background-color: #0073b7; color: #ffffff; text-decoration: none; border-radius: 5px; }
+                .footer { padding: 20px 0; text-align: center; font-size: 12px; color: #999; }
+
+                /* MOBILE STYLES */
+                @media screen and (max-width: 600px) {
+                    h1 { font-size: 32px !important; line-height: 32px !important; }
+                }
+            </style>
+        </head>
+        <body style="margin:0; padding:0;">
+            <center class="container">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <!-- HEADER -->
+                    <tr class="header">
+                        <td align="center">
+                            <h1>欢迎使用熊仔网盘</h1>
+                        </td>
+                    </tr>
+                    <!-- END HEADER -->
+
+                    <!-- CONTENT -->
+                    <tr>
+                        <td class="content">
+                            <p>亲爱的用户，</p>
+                            <p>感谢您注册我们的服务。为了确保您的账户安全，请输入下面的验证码完成邮箱验证。</p>
+                            <p><span class="button">${VerificationCode}</span></p>
+                            <p>如果您没有请求此操作，请忽略这封邮件或联系我们。</p>
+                            <p>谢谢！</p>
+                        </td>
+                    </tr>
+                    <!-- END CONTENT -->
+
+                    <!-- FOOTER -->
+                    <tr class="footer">
+                        <td>
+                            <p>如有任何问题，请联系我们的支持团队：<a href="http://xxoutman.cn/">http://xxoutman.cn/</a></p>
+                        </td>
+                    </tr>
+                    <!-- END FOOTER -->
                 </table>
-            </div>
-            <div style="width:680px;padding:0 10px;margin:0 auto;">
-                <div style="line-height:1.5;font-size:14px;margin-bottom:25px;color:#4d4d4d;">
-                    <strong style="display:block;margin-bottom:15px;">尊敬的用户：<span style="color:#f60;font-size: 16px;"></span>您好！</strong>
-                    <strong style="display:block;margin-bottom:15px;">
-                        您正在进行<span style="color: red">注册验证</span>操作，请在验证码输入框中输入：<span style="color:#f60;font-size: 24px">${VerificationCode}</span>，以完成操作。
-                    </strong>
-                </div>
-                <div style="margin-bottom:30px;">
-                    <small style="display:block;margin-bottom:20px;font-size:12px;">
-                        <p style="color:#747474;">
-                            注意：此操作可能会修改您的密码、登录邮箱或绑定手机。如非本人操作，请及时登录并修改密码以保证帐户安全
-                            <br>（工作人员不会向你索取此验证码，请勿泄漏！)
-                        </p>
-                    </small>
-                </div>
-            </div>
-            <div style="width:700px;margin:0 auto;">
-                <div style="padding:10px 10px 0;border-top:1px solid #ccc;color:#747474;margin-bottom:20px;line-height:1.3em;font-size:12px;">
-                    <p>此为系统邮件，请勿回复<br>
-                        请保管好您的邮箱，避免账号被他人盗用
-                    </p>
-                    <p>熊仔图床网络科技团队</p>
-                </div>
-            </div>
-        </td>
-    </tr>
-    </tbody>
-</table>
-           </body>`, //html模板
-    // attachments: [              //附件信息,如果需要了再打开使用
-    //     {
-    //         filename: '',
-    //         path: '',
-    //     }
-    // ]
+            </center>
+        </body>
+      </html>
+      `,
   };
 
   return new Promise((resolve, reject) => {

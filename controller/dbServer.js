@@ -5,11 +5,14 @@ const { TOKEN_KEY, TIME } = require("../config");
 //操作数据库
 const dbModel = require("../lib/db");
 
-// 新建文件函数
+// 1.添加文件函数-已修改
 exports.insertFile = async (req, res) => {
-  let { file_upload_time, file_type, file_link, file_suffix, file_name, file_size, file_region, file_user_id, file_user_name, file_remark, file_address, file_view } = req.body; //解构赋值
+  // let { file_upload_time, file_type, file_link, file_suffix, file_name, file_size, file_region, file_user_id, file_user_name, file_remark, file_address, file_view } = req.body; //解构赋值
+  let { file_createtime, file_type, file_name, file_suffix, file_link, file_size, file_region, file_user_id, file_user_name, file_likes, file_views, file_remark, file_address, file_public } =
+    req.body;
+
   await dbModel
-    .insertFile([file_upload_time, file_type, file_link, file_suffix, file_name, file_size, file_region, file_user_id, file_user_name, file_remark, file_address, file_view])
+    .insertFile([file_createtime, file_type, file_name, file_suffix, file_link, file_size, file_region, file_user_id, file_user_name, file_likes, file_views, file_remark, file_address, file_public])
     .then((result) => {
       res.send({
         code: 200,
@@ -20,15 +23,16 @@ exports.insertFile = async (req, res) => {
       res.send({
         code: 500,
         message: "服务器出大问题!",
+        err,
       });
     });
 };
 
-// 新建用户函数
+// 2.新建用户函数-已修改
 exports.createUser = async (req, res) => {
-  let { username, password, email, sex, sign, age, phone, avatar, create_time } = req.body; //解构赋值
+  let { user_name, user_password, user_email, user_sex, user_sign, user_avatar, user_createtime } = req.body; //解构赋值
   await dbModel
-    .createUser([username, password, email, sex, sign, age, phone, avatar, create_time])
+    .createUser([user_name, user_password, user_email, user_sex, user_sign, user_avatar, user_createtime])
     .then((result) => {
       res.send({
         code: 200,
@@ -39,11 +43,12 @@ exports.createUser = async (req, res) => {
       res.send({
         code: 500,
         message: "服务器出大问题!",
+        err,
       });
     });
 };
 
-//判断邮箱是否相同
+//判断邮箱是否相同-已修改
 exports.sameEmail = async (req, res) => {
   let { email } = req.body; //解构赋值
   await dbModel
@@ -74,19 +79,25 @@ exports.userLogin = async (req, res) => {
           message: "用户名或者密码错误！",
         });
       } else {
-        let token = jwt.sign({ email, password }, TOKEN_KEY, { expiresIn: TIME });
+        let token = Date.now() + 1000 * 60 * 60 * 24 * 7; //7天token过期
+
+        // setTimeout(() => {
+        //   const data = jwt.verify(token, "xiong-zai-tu-chaung");
+        //   console.log(data);
+        // }, 11000);
+
         res.send({
           code: 200,
           message: "登录成功！",
-          token: "Bearer " + token,
+          token: token, //jwt 生成的token
           userObj: {
             id: result[0].user_id,
-            username: result[0].username,
-            avatar: result[0].avatar,
-            email: result[0].email,
-            banana_num: result[0].banana_num,
-            sign: result[0].sign,
-            create_time: result[0].create_time,
+            username: result[0].user_name,
+            avatar: result[0].user_avatar,
+            email: result[0].user_email,
+            user_money: result[0].user_money,
+            sign: result[0].user_sign,
+            create_time: result[0].user_createtime,
           },
         });
       }
@@ -174,6 +185,7 @@ exports.updateScreenNumber = async (req, res) => {
       });
     });
 };
+
 //增加香蕉接口
 exports.insertBanana = async (req, res) => {
   let { user_id } = req.body; //解构赋值
@@ -236,30 +248,6 @@ exports.fileMultipleFind = async (req, res) => {
   // console.log("---", file_user_id, file_type, file_name, file_remark, time_range, page_num, page_size);
   await dbModel
     .fileMultipleFind([file_user_id, file_type, file_name, file_remark, time_range, page_num, page_size])
-    .then((result) => {
-      res.send({
-        code: 200,
-        message: result,
-        count: result.length,
-      });
-    })
-    .catch((err) => {
-      res.send({
-        code: 500,
-        message: "服务器出大问题!",
-        err: err,
-      });
-    });
-};
-
-// -------------------------------------------------------
-// 移动端接口
-// 1.查询文件
-
-exports.m_searchfile = async (req, res) => {
-  let { keyword } = req.query; //解构赋值 //查询用户, (文件类型)后缀名file_suffix  文件名称file_name 文件备注信息file_remark 查询时间范围
-  await dbModel
-    .m_searchfile([keyword, keyword])
     .then((result) => {
       res.send({
         code: 200,
